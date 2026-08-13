@@ -1,0 +1,59 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Registration | Solo Tournament BD</title><link rel="stylesheet" href="style.css"></head><body><main class="page"><div class="box"><a href="index.html">← Home</a><h1>📝 Tournament Registration</h1>
+<div class="payment"><h3>💳 Payment</h3><p>🟣 bKash: <b>01890347440</b></p><p>🟠 Nagad: <b>01781586274</b></p><p>💰 Entry Fee: <b>৳৫০</b></p></div>
+<div class="payment"><h3>🆘 Help Center</h3><p>সাহায্য প্রয়োজন হলে Telegram Support-এ যোগাযোগ করুন।</p><a class="btn" href="https://t.me/tournament_cg" target="_blank">💬 Telegram Help Center</a></div>
+<form id="registrationForm">
+
+<label>🎟️ Tournament Slot *</label><select name="Tournament Slot" required><option value="">Select Slot</option><option>Slot 1</option><option>Slot 2</option><option>Slot 3</option><option>Slot 4</option><option>Slot 5</option><option>Slot 6</option><option>Slot 7</option><option>Slot 8</option><option>Slot 9</option><option>Slot 10</option><option>Slot 11</option><option>Slot 12</option><option>Slot 13</option><option>Slot 14</option><option>Slot 15</option><option>Slot 16</option><option>Slot 17</option><option>Slot 18</option><option>Slot 19</option><option>Slot 20</option><option>Slot 21</option><option>Slot 22</option><option>Slot 23</option><option>Slot 24</option><option>Slot 25</option><option>Slot 26</option><option>Slot 27</option><option>Slot 28</option><option>Slot 29</option><option>Slot 30</option></select>
+<label>Player Name *</label><input name="Player Name" required><label>In-Game Name *</label><input name="In-Game Name" required><label>Free Fire UID *</label><input name="Player UID" required><label>Player WhatsApp Number *</label><input name="WhatsApp Number" type="tel" required placeholder="01XXXXXXXXX"><label>Payment Method *</label><select name="Payment Method" required><option value="">Select</option><option>bKash</option><option>Nagad</option></select><label>Transaction ID *</label><input name="Transaction ID" required>
+<button class="btn full" type="submit">📨 Submit Registration</button></form><div class="pending">⏳ Payment Verification Pending<br><small>Accepted players will receive the official WhatsApp group/room information.</small></div></div></main>
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const get = n => (form.elements[n]?.value || '').trim();
+
+  const slot = get('Tournament Slot');
+  const player = get('Player Name');
+  const ign = get('In-Game Name');
+  const uid = get('Player UID');
+  const playerWhatsApp = get('WhatsApp Number');
+  const method = get('Payment Method');
+  const trx = get('Transaction ID');
+
+  if (!slot || !player || !ign || !uid || !playerWhatsApp || !method || !trx) {
+    alert('সব তথ্য পূরণ করুন।');
+    return;
+  }
+
+  const message =
+`🎮 *Solo Tournament BD — New Registration*
+
+🎟️ Slot: ${slot}
+👤 Player Name: ${player}
+🎮 In-Game Name: ${ign}
+🆔 Player UID: ${uid}
+📱 Player WhatsApp: ${playerWhatsApp}
+💳 Payment Method: ${method}
+🔢 Transaction ID: ${trx}
+
+⏳ Payment Verification Pending`;
+
+  // Admin WhatsApp destination. This number is not displayed to the player.
+  const adminWhatsApp = '8801617266054';
+  const url = 'https://wa.me/' + adminWhatsApp + '?text=' + encodeURIComponent(message);
+
+  // Keep the player's screen private: only show pending status.
+  document.body.innerHTML = `
+    <main class="page">
+      <div class="box center">
+        <h1>⏳ Registration Pending</h1>
+        <p>আপনার registration request গ্রহণ করা হয়েছে।</p>
+        <p>Payment verification সম্পন্ন হওয়ার পর প্রয়োজনীয় তথ্য জানানো হবে।</p>
+      </div>
+    </main>`;
+
+  // Open WhatsApp after the private pending screen is set.
+  setTimeout(() => { window.open(url, '_blank'); }, 100);
+});
+</script>
+</body></html>
